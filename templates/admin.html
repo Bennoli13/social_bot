@@ -1,0 +1,118 @@
+{% extends "base.html" %} 
+{% block main %}
+
+</nav><!-- /. NAV SIDE  -->
+<div id="page-wrapper">
+  <div id="page-inner">
+    <div class="row">
+      <div class="col-md-12">
+        <h2>Admin Panel</h2>
+      </div>
+    </div><!-- /. ROW  -->
+    <hr>
+    <div class="row">
+      <div class="col-md-12">
+        <!-- /. NAV SIDE  -->
+        <div class="row"></div><!-- /. ROW  -->
+        <div class="row">
+          <div class="col-md-12">
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="alert alert-info">
+                    {{ messages[0] }}
+                </div>
+            {% endif %}
+            {% endwith %}
+            <div class="col-md-3">
+                <div class="panel panel-default">
+                <div class="panel-heading">
+                    Input New User
+                </div>
+                <div class="panel-body">
+                    <form role="form" method="post" action="/adduser">
+                    <div class="form-group">
+                        <label>Username</label> <input class="form-control" type="text" name="name" id="name">
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label> <input class="form-control" type="email" name="email">
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label> <input class="form-control" type="password" name="password">
+                    </div>
+                    <div class="form-group">
+                        <label>Re-Enter Password</label> <input class="form-control" type="password" name="password2">
+                    </div>
+                    <button type="submit" class="btn btn-default">Submit</button>
+                    </form>
+                </div>
+                </div>
+            </div>
+            <div class="col-md-9">
+                <div class="panel panel-default">
+                <div class="panel-heading">
+                    USERS LIST
+                </div>
+                <div class="panel-body">
+                    <div class="table-responsive">
+                    <table class="table table-striped table-bordered table-hover" id="data">
+                        <thead>
+                        <tr>
+                            <th class="text-center">No</th>
+                            <th class="text-center">Email</th>
+                            <th class="text-center">Username</th>
+                            <th class="text-center">Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for user in users %}
+                        <tr>
+                            <td class="text-center">{{ loop.index }}</td>
+                            <td>{{ user.email }}</td>
+                            <td>{{ user.name }}</td>
+                            <td>
+                            <a href="/resetpass/{{ user.id }}" class="btn btn-primary">Reset Password</a> 
+                            <a href="/deleteuser/{{ user.id }}" class="btn btn-danger">Delete</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                    </div>
+                </div>
+                </div>
+            </div>
+          </div>
+        </div><!-- /. ROW  -->
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %} 
+
+{% block scripts %} 
+<script>
+  $(document).ready(function () {
+    $('#data').DataTable();
+  });
+</script>
+<script type="text/javascript">
+    $(function () {
+        $("#name").keypress(function (e) {
+            var keyCode = e.keyCode || e.which;
+ 
+            $("#lblError").html("");
+ 
+            //Regex for Valid Characters i.e. Alphabets and Numbers.
+            var regex = /^[A-Za-z0-9]+$/;
+ 
+            //Validate TextBox value against the Regex.
+            var isValid = regex.test(String.fromCharCode(keyCode));
+            if (!isValid) {
+                $("#lblError").html("Only Alphabets and Numbers allowed.");
+            }
+ 
+            return isValid;
+        });
+    });
+</script> 
+{% endblock %}

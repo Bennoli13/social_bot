@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Social App</title><!-- BOOTSTRAP STYLES-->
+  <link href="static/assets/css/bootstrap.css" rel="stylesheet"><!-- FONTAWESOME STYLES-->
+  <link href="static/assets/css/font-awesome.css" rel="stylesheet"><!-- MORRIS CHART STYLES-->
+  <link href="static/assets/js/morris/morris-0.4.3.min.css" rel="stylesheet"><!-- CUSTOM STYLES-->
+  <link href="static/assets/css/custom.css" rel="stylesheet"><!-- GOOGLE FONTS-->
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+</head>
+<body>
+  <div id="wrapper">
+    <nav class="navbar navbar-default navbar-cls-top" role="navigation" style="margin-bottom: 0">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse"><span class="sr-only">Toggle navigation</span></button> <a class="navbar-brand" href="index.html">Social App</a>
+      </div>
+      <div style="color: white; padding: 15px 50px 5px 50px; float: right; font-size: 16px;">
+        &nbsp; <a href="/logout" class="btn btn-danger square-btn-adjust">Logout</a>
+      </div>
+    </nav>
+    <nav class="navbar-default navbar-side" role="navigation">
+      <div class="sidebar-collapse">
+        <ul class="nav" id="main-menu">
+          <li class="text-center"><img src="static/assets/img/find_user.png" class="user-image img-responsive" alt="find_user"></li>
+          <li>
+            <a href="/main">Send Message</a>
+          </li>
+          <li>
+            <a href="#"><i class="fa fa-sitemap fa-3x"></i> Chat Configuration<span class="fa arrow"></span></a>
+            <ul class="nav nav-second-level">
+                <li>
+                    <a href="/contactlist">Contact List</a>
+                </li>
+                <li>
+                    <a href="#">Labels</a>
+                </li>
+                <li>
+                    <a href="#">Message Template</a>
+                </li>
+            </ul>
+          </li>  
+          <li>
+            <a href="/admin"><i class="fa fa-desktop fa-3x"></i>Admin Panel</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+{% block main %} {% endblock %}  
+</div>
+  
+  <!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
+  <script src="static/assets/js/jquery-1.10.2.js"></script> <!-- BOOTSTRAP SCRIPTS --> 
+  <script src="static/assets/js/bootstrap.min.js"></script> 
+  <script src="static/assets/js/jquery.metisMenu.js"></script>
+  <script src="static/assets/js/custom.js"></script>
+  <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.6.0.min.js"></script> 
+  <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script> 
+  <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap5.js"></script> {% block scripts %}{% endblock %} 
+  <script>
+      $(function() {
+  $('nav a[href^="/' + location.pathname.split("/")[1] + '"]').addClass('active-menu');
+  });
+  </script>
+</body>
+</html>

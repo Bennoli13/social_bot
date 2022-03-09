@@ -1,0 +1,125 @@
+{% extends "base.html" %} 
+{% block main %}
+</nav><!-- /. NAV SIDE  -->
+<div id="page-wrapper">
+  <div id="page-inner">
+    <div class="row">
+      <div class="col-md-12">
+        <h2>Contact List</h2>
+      </div>
+    </div><!-- /. ROW  -->
+    <hr>
+    <div class="row">
+      <div class="col-md-12">
+        <!-- /. NAV SIDE  -->
+        <div class="row"></div><!-- /. ROW  -->
+        <div class="row">
+          <div class="col-md-12">
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="alert alert-info">
+                    {{ messages[0] }}
+                </div>
+            {% endif %}
+            {% endwith %}
+            
+                <div class="panel panel-default">
+                <div class="panel-heading">
+                    <a id="hide">Input New Contact</a>
+                </div>
+                <div id="contact-form" class="panel-body" style="display:block;">
+                    <form role="form" method="post" action="/contactlist">
+                    <div class="form-group">
+                        <label>Customer ID</label> <input class="form-control" type="text" name="cust_id">
+                    </div>
+                    <div class="form-group">
+                        <label>Group Name</label> <input class="form-control" type="text" name="group_name">
+                    </div>
+                    <div class="form-group">
+                      <label>Email</label> <input class="form-control" type="email" name="email">
+                  </div>
+                    <div class="form-group">
+                        <label>Chat ID</label> <input class="form-control" type="text" name="chat_id">
+                    </div>
+                    <div class="form-group">
+                      <label>App</label>
+                      <select class="form-control" name="app_name">
+                          <option>Telegram</option>
+                          <option>Skype</option>
+                          <option>Slack</option>
+                      </select>
+                  </div>
+                    <button type="submit" class="btn btn-default">Submit</button>
+                    </form>
+                </div>
+                </div>
+            
+            
+                <div class="panel panel-default">
+                <div class="panel-heading">
+                    CONTACTS LIST
+                </div>
+                <div class="panel-body">
+                    <div class="table-responsive">
+                      <table class="table table-striped table-bordered table-hover" id="data">
+                        <thead>
+                        <tr>
+                          <th class="text-center">No</th>
+                          <th class="text-center">Group Name</th>
+                          <th class="text-center">Email</th>
+                          <th class="text-center">Customer ID</th>
+                          <th class="text-center">Chat ID</th>
+                          <th class="text-center">App</th>
+                          <th class="text-center">Label</th>
+                          <th class="text-center">Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for contact in contacts %}
+                        <tr>
+                            <td class="text-center">{{ loop.index }}</td>
+                            <td>{{ contact.group_name }}</td>
+                            <td>{{ contact.email }}</td>
+                            <td>{{ contact.cust_id }}</td>
+                            <td>{{ contact.chat_id }}</td>
+                            <td>{{ contact.app_name }}</td>
+                            <td>{{ contact.label }}</td>
+                            <td>
+                            <a href="/editcontact/{{ contact.cust_id }}" class="btn btn-primary">Edit</a> 
+                            <a href="/deletecontact/{{ contact.cust_id }}" class="btn btn-danger">Delete</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                    </div>
+                </div>
+                </div>
+            
+          </div>
+        </div><!-- /. ROW  -->
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %} 
+
+{% block scripts %} 
+<script>
+  $(document).ready(function () {
+    $('#data').DataTable();
+  });
+
+  $(document).ready(function(){
+  $("#hide").click(function(){
+    var value = $("#contact-form").css('display');
+    if (value == "block") {$("#contact-form").hide();}
+    else{$("#contact-form").show();}
+  });
+});
+
+$(document).ready(function(){
+  $("#contact-form").hide();
+});
+</script>
+{% endblock %}
